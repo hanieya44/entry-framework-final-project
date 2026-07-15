@@ -1,45 +1,18 @@
-﻿using ConsoleApp;
-using System;
-using System.Linq;
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-class Program
-{
-    static void Main(string[] args)
-    {
-        Console.WriteLine("Creating database and adding student...");
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
 
-        // Create a new instance of the database context
-        using (var context = new StudentContext())
-        {
-            // Ensure the database is created
-            context.Database.EnsureCreated();
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
-            // Create a new student object
-            var student = new Student
-            {
-                FirstName = "Samer",
-                LastName = "Albohloq",
-                DateOfBirth = new DateTime(1976,1, 10)
-            };
-
-            // Add the student to the Students DbSet
-            context.Students.Add(student);
-
-            // Save changes to the database
-            context.SaveChanges();
-
-            Console.WriteLine("The Student is added successfully!");
-
-            // Retrieve and display the student to verify
-            var savedStudent = context.Students.FirstOrDefault(s => s.FirstName == "Samer");
-            if (savedStudent != null)
-            {
-                Console.WriteLine($" Student: {savedStudent.FirstName} {savedStudent.LastName}");
-            }
-        }
-
-    
-    }
-
-}
-
+</Project>
